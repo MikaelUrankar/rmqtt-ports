@@ -1,0 +1,3 @@
+RMQTT broker is a fully open source, highly scalable, highly available
+distributed MQTT messaging broker for IoT, M2M and mobile applications that can
+handle millions of concurrent clients on a single service node.
