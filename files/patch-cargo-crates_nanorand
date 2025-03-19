@@ -1,0 +1,53 @@
+--- cargo-crates/nanorand-0.7.0/src/entropy/bsd.rs.orig	2025-03-17 14:09:42 UTC
++++ cargo-crates/nanorand-0.7.0/src/entropy/bsd.rs
+@@ -0,0 +1,13 @@
++use core::ffi::c_void;
++
++extern "C" {
++	fn arc4random_buf(buf: *mut c_void, nbytes: usize);
++}
++
++/// Obtain a series of random bytes.
++pub fn entropy(out: &mut [u8]) -> bool {
++	unsafe {
++		arc4random_buf(out.as_mut_ptr() as *mut c_void, out.len());
++		true
++	}
++}
+--- cargo-crates/nanorand-0.7.0/src/entropy.rs.orig	2025-03-17 14:01:12.736571000 +0100
++++ cargo-crates/nanorand-0.7.0/src/entropy.rs	2025-03-17 14:08:26.283192000 +0100
+@@ -5,6 +5,11 @@ pub use linux::entropy as system;
+ 	not(feature = "getrandom")
+ ))]
+ pub use linux::entropy as system;
++#[cfg(all(
++	any(target_os = "openbsd", target_os = "freebsd"),
++	not(feature = "getrandom")
++))]
++pub use bsd::entropy as system;
+ #[cfg(all(windows, not(target_vendor = "uwp"), not(feature = "getrandom")))]
+ pub use windows::entropy as system;
+ #[cfg(all(windows, target_vendor = "uwp", not(feature = "getrandom")))]
+@@ -29,6 +34,13 @@ pub mod windows;
+ /// An entropy generator for Windows, using WinAPI's `RtlGenRandom` function.
+ pub mod windows;
+ 
++#[cfg(all(
++	any(target_os = "openbsd", target_os = "freebsd"),
++	not(feature = "getrandom")
++))]
++/// An entropy generator for OpenBSD and FreeBSD, using libc's `arc4random_buf` function.
++pub mod bsd;
++
+ #[cfg(feature = "getrandom")]
+ /// Pull in system entropy using the [`getrandom`](https://crates.io/crates/getrandom) crate.
+ /// Uses backup entropy (rdseed and system time) if it fails.
+@@ -44,6 +56,8 @@ pub fn system(out: &mut [u8]) {
+ 	feature = "getrandom",
+ 	target_os = "linux",
+ 	target_os = "android",
++	target_os = "openbsd",
++	target_os = "freebsd",
+ 	target_vendor = "apple",
+ 	windows
+ )))]
