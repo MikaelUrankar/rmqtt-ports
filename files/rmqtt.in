@@ -1,0 +1,65 @@
+#!/bin/sh
+
+# PROVIDE: rmqttd
+# REQUIRE: DAEMON
+# BEFORE: LOGIN
+# KEYWORD: shutdown
+
+#
+# Add the following lines to /etc/rc.conf to enable rmqttd:
+#
+# rmqttd_enable="YES"
+# rmqttd_flags="<set as needed>"
+#
+# See rmqttd(8) for flags
+#
+
+. /etc/rc.subr
+
+name=rmqttd
+rcvar=rmqttd_enable
+
+load_rc_config $name
+
+rmqttd_enable=${rmqttd_enable:="NO"}
+rmqttd_user=${rmqttd_user:="nobody"}
+
+command="/usr/bin/true"
+procname="/usr/sbin/daemon"
+pidfile="/var/run/${name}.pid"
+
+start_cmd="rmqttd_start"
+stop_cmd="rmqttd_stop"
+
+is_process_running()
+{
+	[ -f ${pidfile} ] && procstat $(cat ${pidfile}) >/dev/null 2>&1
+}
+
+rmqttd_start()
+{
+	/usr/bin/install -o ${rmqttd_user} -m 644 /dev/null ${pidfile}
+	/usr/bin/install -d -o ${rmqttd_user} -m 755 /var/log/rmqtt
+
+	/usr/sbin/daemon -P ${pidfile} -r -f -u ${rmqttd_user} -H %%PREFIX%%/bin/rmqttd
+
+	if is_process_running; then
+		echo "Started rmqttd (pid=$(cat ${pidfile}))"
+	else
+		echo "Failed to start rmqttd"
+	fi
+}
+
+rmqttd_stop()
+{
+	if is_process_running; then
+		local pid=$(cat ${pidfile})
+		echo "Stopping rmqttd (pid=${pid})"
+		kill -INT -- -${pid}
+		wait_for_pids ${pid}
+	else
+		echo "rmqttd isn't running"
+	fi
+}
+
+run_rc_command "$1"

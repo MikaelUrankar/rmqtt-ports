@@ -1,0 +1,23 @@
+bin/rmqttd
+@sample %%ETCDIR%%/rmqtt-plugins/rmqtt-acl.toml.sample
+@sample %%ETCDIR%%/rmqtt-plugins/rmqtt-auth-http.toml.sample
+@sample %%ETCDIR%%/rmqtt-plugins/rmqtt-cluster-broadcast.toml.sample
+@sample %%ETCDIR%%/rmqtt-plugins/rmqtt-cluster-raft.toml.sample
+@sample %%ETCDIR%%/rmqtt-plugins/rmqtt-http-api.toml.sample
+@sample %%ETCDIR%%/rmqtt-plugins/rmqtt-retainer.toml.sample
+@sample %%ETCDIR%%/rmqtt-plugins/rmqtt-sys-topic.toml.sample
+@sample %%ETCDIR%%/rmqtt-plugins/rmqtt-web-hook.toml.sample
+@sample %%ETCDIR%%/rmqtt-plugins/rmqtt-auth-jwt.toml.sample
+@sample %%ETCDIR%%/rmqtt-plugins/rmqtt-auto-subscription.toml.sample
+@sample %%ETCDIR%%/rmqtt-plugins/rmqtt-bridge-egress-kafka.toml.sample
+@sample %%ETCDIR%%/rmqtt-plugins/rmqtt-bridge-egress-mqtt.toml.sample
+@sample %%ETCDIR%%/rmqtt-plugins/rmqtt-bridge-egress-nats.toml.sample
+@sample %%ETCDIR%%/rmqtt-plugins/rmqtt-bridge-egress-pulsar.toml.sample
+@sample %%ETCDIR%%/rmqtt-plugins/rmqtt-bridge-egress-reductstore.toml.sample
+@sample %%ETCDIR%%/rmqtt-plugins/rmqtt-bridge-ingress-kafka.toml.sample
+@sample %%ETCDIR%%/rmqtt-plugins/rmqtt-bridge-ingress-mqtt.toml.sample
+@sample %%ETCDIR%%/rmqtt-plugins/rmqtt-bridge-ingress-pulsar.toml.sample
+@sample %%ETCDIR%%/rmqtt-plugins/rmqtt-message-storage.toml.sample
+@sample %%ETCDIR%%/rmqtt-plugins/rmqtt-session-storage.toml.sample
+@sample %%ETCDIR%%/rmqtt-plugins/rmqtt-topic-rewrite.toml.sample
+@sample %%ETCDIR%%/rmqtt.toml.sample

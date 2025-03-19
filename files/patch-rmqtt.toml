@@ -1,0 +1,20 @@
+--- rmqtt.toml.orig	2025-03-18 14:23:39 UTC
++++ rmqtt.toml
+@@ -58,7 +58,7 @@ rpc.client_timeout = "10s"
+ ## Log
+ ##--------------------------------------------------------------------
+ # Value: off | file | console | both
+-log.to = "both"
++log.to = "console"
+ # Value: trace, debug, info, warn, error
+ log.level = "info"
+ log.dir = "/var/log/rmqtt"
+@@ -69,7 +69,7 @@ log.file = "rmqtt.log"
+ ## Plugins
+ ##--------------------------------------------------------------------
+ #Plug in configuration file directory
+-plugins.dir = "rmqtt-plugins/"
++plugins.dir = "ETCDIR/rmqtt-plugins/"
+ #Plug in started by default, when the mqtt server is started
+ plugins.default_startups = [
+     #"rmqtt-plugin-template",
