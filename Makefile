@@ -21,6 +21,8 @@ DOS2UNIX_FILES=	rmqtt.toml \
 		rmqtt-plugins/rmqtt-cluster-raft.toml \
 		rmqtt-plugins/rmqtt-web-hook.toml
 
+USE_RC_SUBR=	${PORTNAME}
+
 post-patch:
 	@${REINPLACE_CMD} 's|ETCDIR|${ETCDIR}|' \
 		${WRKSRC}/rmqtt.toml \
