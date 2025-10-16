@@ -1,5 +1,5 @@
 PORTNAME=	rmqtt
-DISTVERSION=	0.15.0
+DISTVERSION=	0.16.1
 MASTER_SITES=	https://codeload.github.com/rmqtt/rmqtt/tar.gz/refs/tags/${DISTVERSION}?dummy=/
 DISTFILES=	${DISTNAME}${EXTRACT_SUFX}
 CATEGORIES=	net
